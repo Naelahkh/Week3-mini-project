@@ -22,14 +22,14 @@ def load_data():
 
 def main(use_mlflow=True):
     X_train, X_test, y_train, y_test = load_data()
-    model = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=42)
+    model = RandomForestClassifier(n_estimators=120, max_depth=4, random_state=42)
 
     if use_mlflow:
         os.environ.setdefault("MLFLOW_TRACKING_URI", os.path.abspath("./mlruns"))
         with mlflow.start_run():
             mlflow.log_param("model", "RandomForestClassifier")
-            mlflow.log_param("n_estimators", 100)
-            mlflow.log_param("max_depth", 5)
+            mlflow.log_param("n_estimators", 120)
+            mlflow.log_param("max_depth", 4)
             model.fit(X_train, y_train)
             preds = model.predict(X_test)
             acc = accuracy_score(y_test, preds)
